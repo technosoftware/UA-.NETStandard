@@ -40880,7 +40880,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
@@ -41199,7 +41199,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
@@ -41321,7 +41321,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
@@ -41444,7 +41444,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
@@ -41568,7 +41568,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
@@ -41887,7 +41887,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
@@ -42010,7 +42010,7 @@ namespace Opc.Ua
         /// <remarks />
         protected override int GetDefaultValueRank()
         {
-            return ValueRanks.Any;
+            return ValueRanks.Scalar;
         }
 
         #if (!OPCUA_EXCLUDE_InitializationStrings)
