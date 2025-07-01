@@ -19,6 +19,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Opc.Ua
 {
@@ -715,6 +716,25 @@ namespace Opc.Ua
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Invokes the methods and returns the output parameters.
+        /// </summary>
+        /// <param name="context">The context to use.</param>
+        /// <param name="objectId">The object being called.</param>
+        /// <param name="inputArguments">The input arguments.</param>
+        /// <param name="outputArguments">The output arguments.</param>
+        /// <param name="cancellationToken">The cancellation token</param>
+        /// <returns>The result of the method call.</returns>
+        protected virtual ValueTask<ServiceResult> CallAsync(
+            ISystemContext context,
+            NodeId objectId,
+            IList<object> inputArguments,
+            IList<object> outputArguments,
+            CancellationToken cancellationToken = default)
+        {
+            return new ValueTask<ServiceResult>(Call(context, objectId, inputArguments, outputArguments));
         }
 
         /// <summary>

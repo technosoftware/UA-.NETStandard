@@ -14,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Opc.Ua
 {
@@ -613,12 +615,15 @@ namespace Opc.Ua
             /// </summary>
             /// <param name="requestType">Type of the request.</param>
             /// <param name="invokeMethod">The invoke method.</param>
+            /// <param name="invokeServiceAsync">The invoke method.</param>
             public ServiceDefinition(
                 Type requestType,
-                InvokeServiceEventHandler invokeMethod)
+                InvokeServiceEventHandler invokeMethod,
+                InvokeServiceAsyncEventHandler invokeServiceAsync)
             {
                 m_requestType = requestType;
                 m_InvokeService = invokeMethod;
+                m_InvokeServiceAsync = invokeServiceAsync;
             }
 
             /// <summary>
@@ -649,9 +654,21 @@ namespace Opc.Ua
                 return m_InvokeService?.Invoke(request);
             }
 
+            /// <summary>
+            /// Processes the request.
+            /// </summary>
+            /// <param name="request">The request.</param>
+            /// <param name="cancellationToken">The cancellation token.</param>
+            /// <returns></returns>
+            public async ValueTask<IServiceResponse> InvokeAsync(IServiceRequest request, CancellationToken cancellationToken = default)
+            {
+                return await m_InvokeServiceAsync?.Invoke(request, cancellationToken);
+            }
+
             #region Private Fields
             private Type m_requestType;
             private InvokeServiceEventHandler m_InvokeService;
+            private InvokeServiceAsyncEventHandler m_InvokeServiceAsync;
             #endregion
         }
 
@@ -659,7 +676,12 @@ namespace Opc.Ua
         /// A delegate used to dispatch incoming service requests.
         /// </summary>
         protected delegate IServiceResponse InvokeServiceEventHandler(IServiceRequest request);
-        #endregion
+
+        /// <summary>
+        /// A delegate used to dispatch incoming service requests.
+        /// </summary>
+        protected delegate Task<IServiceResponse> InvokeServiceAsyncEventHandler(IServiceRequest incoming, CancellationToken cancellationToken = default);
+        #endregion    
 
         #region ProcessRequestAsyncResult Class
         /// <summary>
